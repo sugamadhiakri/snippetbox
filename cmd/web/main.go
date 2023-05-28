@@ -8,6 +8,7 @@ import (
 	"os"
 	"text/template"
 
+	"github.com/go-playground/form/v4"
 	"github.com/sugamadhiakri/snippetbox/cmd/internal/models"
 	_ "modernc.org/sqlite"
 )
@@ -17,6 +18,7 @@ type application struct {
 	infoLog       *log.Logger
 	snippets      *models.SnippetModel
 	templateCache map[string]*template.Template
+	formDecoder   *form.Decoder
 }
 
 func main() {
@@ -42,12 +44,14 @@ func main() {
 		errorLog.Fatal(err)
 	}
 
+	formDecoder := form.NewDecoder()
 	// application
 	app := &application{
 		errorLog:      errorLog,
 		infoLog:       infoLog,
 		snippets:      &models.SnippetModel{DB: db},
 		templateCache: templateCache,
+		formDecoder:   formDecoder,
 	}
 
 	// http server
