@@ -1,4 +1,5 @@
-{{define "title"}}Home{{end}} {{define "main"}}
+{{define "title"}}Home{{end}}
+{{define "main"}}
 <h2>Latest Snippets</h2>
 {{if .Snippets}}
 <table>
@@ -9,7 +10,8 @@
 	</tr>
 	{{range .Snippets}}
 	<tr>
-		<td><a href="/snippet/view?id={{.ID}}">{{.Title}}</a></td>
+		<!-- Use the new clean URL style-->
+		<td><a href='/snippet/view/{{.ID}}'>{{.Title}}</a></td>
 		<td>{{humanDate .Created}}</td>
 		<td>#{{.ID}}</td>
 	</tr>
@@ -17,4 +19,5 @@
 </table>
 {{else}}
 <p>There's nothing to see here... yet!</p>
-{{end}} {{end}}
+{{end}}
+{{end}}
